@@ -40,41 +40,6 @@ const adminSchema = new mongoose.Schema({
         enum: ['A', 'I', 'E'],
         default: 'A',
     },
-    contaBancaria : {
-        titular : {
-            type: String,
-            required: true,
-        },
-        cpfCnpj : {
-            type: String,
-            required: true,
-        },
-        banco: {
-            type: String,
-            required: true,
-        },
-        agencia : {
-            type: String,
-            required: true,
-        },
-        numero: {
-            type: String,
-            required: true,
-        },
-        tipo : {
-            type: String,
-            required: true,
-        },
-        digitoVerificador : {
-            type: String,
-            required: true,
-        },
-    },
-    // recipientID é o ID do recebedor do admin no sistema de pagamentos
-    recipientID: {
-        type: String,
-        required: true,
-    },
     dataCadastro: {
         type: Date,
         required: true,
