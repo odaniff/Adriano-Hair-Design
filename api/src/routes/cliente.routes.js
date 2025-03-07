@@ -16,11 +16,11 @@ router.post('/', async (req, res) => {
         let jsonCliente = JSON.parse(req.body.cliente);  // Pega os dados do body do JSON, SEM os files da requisição para criar um novo cliente
         
         const existentClient = await Cliente.findOne({  // Verifica se o cliente já existe
-        $or: [  // O $or é um operador lógico que retorna verdadeiro se qualquer uma das expressões lógicas for verdadeira
-            { email: jsonCliente.email },  // Verifica se o email do cliente já existe
-            { telefone: jsonCliente.telefone },   // Verifica se o telefone do cliente já existe
-            { documento: jsonCliente.documento.numero }, // Verifica se o documento do cliente já existe
-        ],
+            $or: [  // O $or é um operador lógico que retorna verdadeiro se qualquer uma das expressões lógicas for verdadeira
+                { email: jsonCliente.email },  // Verifica se o email do cliente já existe
+                { telefone: jsonCliente.telefone },   // Verifica se o telefone do cliente já existe
+                { documento: jsonCliente.documento.numero }, // Verifica se o documento do cliente já existe
+            ],
         });
 
         if (existentClient) {  // Se o cliente existir
@@ -166,9 +166,9 @@ router.put('/:id', async (req, res) => {
             $or: [  // O $or é um operador lógico que retorna verdadeiro se qualquer uma das expressões lógicas for verdadeira
                 { email: cliente.email },  // Verifica se o email do cliente já existe
                 { telefone: cliente.telefone },   // Verifica se o telefone do cliente já existe
-                { documento: cliente.documento?.numero }, // Verifica se o documento do cliente já existe
+                { documento: cliente.documento?.numero }, // Verifica se o documento do cliente já existe ou é undefined/null
             ],
-            });
+        });
 
         if (existentClient) {  // Se existir cliente com o email, telefone ou documento atualizado
             await session.abortTransaction();

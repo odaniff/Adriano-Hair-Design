@@ -44,7 +44,7 @@ const agendamentoSchema = new mongoose.Schema({
         type: Date,  // Horário de término do atendimento (Ex.: 2024-02-27T18:00:00.000Z)
         required: true,
     },
-    fim: {
+    data_fim: {
         type: Date,  // Horário de término do atendimento (Ex.: 2024-02-27T18:00:00.000Z)
     },
     dataCadastro: {
@@ -57,7 +57,7 @@ const agendamentoSchema = new mongoose.Schema({
 // Middleware para calcular 'fim' antes de salvar
 agendamentoSchema.pre('save', function (next) {
     if (this.data_inicio && this.duracao_servico) { // se exisitir data_inicio e duracao_servico
-        this.fim = new Date(this.data_inicio.getTime() + this.duracao_servico * 60000); // Soma o inicio com a duracao para obter o fim, e transforma milissegundos para minutos
+        this.data_fim = new Date(this.data_inicio.getTime() + this.duracao_servico * 60000); // Soma o inicio com a duracao para obter o fim, e transforma milissegundos para minutos
     }
     next();
 });

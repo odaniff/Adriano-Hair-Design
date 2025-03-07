@@ -15,12 +15,33 @@ router.post('/', async(req,res) => {
     
     try {
         
-        const { clienteID, servicoID } = req.body;
+        const { clienteID, servicoID, data_inicio } = req.body;
 
+        // Busca as informações do Cliente e do Serviço
         const cliente = await Cliente.findById(clienteID).select('nome telefone email endereco');
-
         const servico = await Servico.findById(servicoID).select('titulo preco duracao');
     
+        if (!cliente || !servico) {
+            await session.abortTransaction();
+            return res.json({ error: true, message: "Cliente ou serviço não encontrado." });
+        }
+
+        const fim = new Date(new Date(data_inicio).getTime() + servico.duracao * 60000);  // fim do novo serviço
+
+        const existentAgendamento = await Agendamento.findOne({     // busca no banco um agendamento existente
+            $or: [
+                {
+                    data_inicio: { $lt: fim},  // que, Começa antes do novo terminar (lt)=> less than-menor que
+                    data_fim: {$gt: data_inicio},  // que, Termina depois do novo começar (gt)=> greater than-maior que
+                },
+            ],
+        });
+        
+        if(existentAgendamento) {
+            await session.abortTransaction();
+            return res.json({ error: true, message: "Já existe um agendamento neste horário." })
+        }
+
         // CRIAR O AGENDAMENTOS
         let agendamento = await new Agendamento({
             ... req.body,  // Copia todos os valores do req.body e junta com o campo 'valor' 
