@@ -47,6 +47,12 @@ const agendamentoSchema = new mongoose.Schema({
     data_fim: {
         type: Date,  // Horário de término do atendimento (Ex.: 2024-02-27T18:00:00.000Z)
     },
+    status: {
+        type: String,
+        required: true,
+        enum: ['A', 'I', 'E'],
+        default: 'A',
+    },
     dataCadastro: {
         type: Date,
         required: true,

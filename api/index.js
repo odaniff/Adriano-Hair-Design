@@ -2,8 +2,8 @@
 import express from 'express'; 
 const app = express(); // Inicializa o express
 import morgan from 'morgan';
-import cors from 'cors';
-import busboy from 'connect-busboy';
+import cors from 'cors'; //O cors é uma biblioteca usada para configurar e controlar as permissões de acesso de diferentes origens (domains) em uma aplicação web.
+import busboy from 'connect-busboy';    // O busboy é uma biblioteca para parseamento de arquivos multipart/form-data em uma aplicação Node.js.
 import busboyBodyParser from 'busboy-body-parser';
 
 import './database.js'; // Requerindo o arquivo de conexão com o banco de dados
@@ -13,7 +13,7 @@ import './database.js'; // Requerindo o arquivo de conexão com o banco de dados
 // Middlewares
 app.use(morgan('dev'));  //O morgan só será usado em ambiente de desenvolvimento
 // app.use(busboy()); // O busboy é um middleware que permite a leitura de arquivos
-app.use(busboyBodyParser()); // O busboyBodyParser é um middleware que permite a leitura de arquivos
+app.use(busboyBodyParser()); // O busboyBodyParser é um middleware que permite a leitura de arquivos 
 app.use(express.json()); // O express.json() é um middleware que permite a leitura de dados em JSON
 app.use(cors()); // O cors é um middleware que permite a comunicação entre servidores
 

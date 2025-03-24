@@ -239,7 +239,7 @@ router.delete('/:id', async (req, res) => {  // Rota para alterar o status de um
 
         // Atualiza o status do serviço no MongoDB
         const servicoExcluido = await Servico.findByIdAndUpdate(req.params.id, {status: 'E'}, {new: true});  // Busca e Atualiza o status do servico pelo ID
-        res.json(servicoExcluido);  // Retorna o servico excluído
+        res.json({ error: false, servicoExcluido });  // Retorna o servico excluído
 
     } catch (error) {
         res.json({error: true, message: error.message });  // Retorna o erro com o status 400
