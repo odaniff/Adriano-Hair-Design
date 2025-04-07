@@ -14,14 +14,10 @@ const clienteSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    senha: {
-        type: String,
-        required: true,
-    },
-    cpf: {
-        type: String,
-        required: true,
-    },
+    // senha: {
+    //     type: String,
+    //     required: true,
+    // },
     telefone: {
         type: String,
         required: true,
@@ -31,29 +27,17 @@ const clienteSchema = new mongoose.Schema({
         required: true,
         enum: ["M", "F"],
     },
-    foto : {
-        type: String,
-        required: true,
-    },
     dataNascimento: {
         type: String,
         required: true,
     },
     endereco: {
-        cep: {
-            type: String,
-            required: true,
-        },
         cidade: {
         type: String,
         required: true,
         },
         UF: {
         type: String,
-        required: true,
-        },
-        numero : {
-        type: String,   
         required: true,
         },
         pais : {

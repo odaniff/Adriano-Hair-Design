@@ -6,6 +6,46 @@ import {Arquivos} from '../models/arquivos.js'; // Importa o model Arquivos
 
 const router = express.Router();
 
+// router.post('/', async (req, res) => {
+//     const db = mongoose.connection;  // Conexão com o banco de dados
+//     const session = await db.startSession();  // Inicia uma sessão
+//     session.startTransaction();         // Inicia uma transação
+  
+//     try {
+        
+//         let cliente = req.body; 
+        
+//         const existentClient = await Cliente.findOne({  // Verifica se o cliente já existe
+//             $or: [  // O $or é um operador lógico que retorna verdadeiro se qualquer uma das expressões lógicas for verdadeira
+//                 { email: cliente.email },  // Verifica se o email do cliente já existe
+//                 { telefone: cliente.telefone },   // Verifica se o telefone do cliente já existe
+//                 { documento: cliente.documento?.numero }, // Verifica se o documento do cliente já existe
+//             ],
+//         });
+
+//         if (existentClient) {  // Se o cliente existir
+//             await session.abortTransaction();
+//             return res.json({ error: true, message: 'Cliente já cadastrado!' });
+//         } 
+
+//         if (!existentClient) {  // Se o cliente não existir  
+            
+//             // CRIA O CLIENTE NO MongoDB
+//             cliente = await new Cliente(cliente).save();
+
+//             await session.commitTransaction();
+//             return res.json({ error: false, cliente});
+//         }
+
+//     } catch (err) {
+//         await session.abortTransaction();
+//         res.json({ error: true, message: err.message });
+//     } finally {
+//         session.endSession();
+//     }
+
+// }); ESSA ROTA NÃO ENVIA OS ARQUIVOS
+
 router.post('/', async (req, res) => {
     const db = mongoose.connection;  // Conexão com o banco de dados
     const session = await db.startSession();  // Inicia uma sessão
@@ -93,18 +133,19 @@ router.post('/', async (req, res) => {
 
 router.post('/filter', async (req, res) => {
     try {
-        const clienteFiltrados = [];
+        // const clienteFiltrados = [];
 
         const clientes = await Cliente.find(req.body.filters); // No body da requisição precisa ser passado assim: "filters" : {parametros que deseja filtrar Ex.: "endereco.cidade": "Brasília"}
 
-        for(let cliente of clientes) {
-            const arquivo = await Arquivos.findOne({
-                referenciaID: cliente._id,
-                model: 'Cliente',
-            });              
-            clienteFiltrados.push({cliente, arquivo})
-        }   
-        res.json({ error: false, clientesEncontrados: clienteFiltrados });
+        // for(let cliente of clientes) {
+        //     const arquivo = await Arquivos.findOne({
+        //         referenciaID: cliente._id,
+        //         model: 'Cliente',
+        //     });              
+        //     clienteFiltrados.push({cliente, arquivo})
+        // }   
+
+        res.json({ error: false, clientes });
 
     } catch (err) {
         res.json({ error: true, message: err.message });
@@ -114,7 +155,7 @@ router.post('/filter', async (req, res) => {
 router.get('/', async (req, res) => { // Rota para buscar todos os clientes ativos e inativos.
     try {
         const todosClientes = [];
-        const clientes = await Cliente.find().select('nome email telefone'); // Busca todos os clientes
+        const clientes = await Cliente.find(); // Busca todos os clientes
 
         for(let cliente of clientes) { // Para cada cliente entre os encontrados
             const arquivo = await Arquivos.find({ // Busca o arquivo vinculado ao cliente
@@ -202,7 +243,19 @@ router.put('/:id', async (req, res) => {
     }
 });
 
-router.delete('/:id', async (req, res) => {
+router.put('/ativar/:id', async (req, res) => {  // Ativa o cliente
+    try {
+        const clienteAtivo = await Cliente.findByIdAndUpdate(req.params.id, { status: 'A' }, {
+            new: true,
+            runValidators: true
+        });
+        res.json({ error: false, clienteAtivo });
+    } catch (err) {
+        res.json({ error: true, message: err.message });
+    }
+});
+
+router.delete('/:id', async (req, res) => {  // Desativa o cliente
     try {
         const clienteInativo = await Cliente.findByIdAndUpdate(req.params.id, { status: 'I' }, {
             new: true,

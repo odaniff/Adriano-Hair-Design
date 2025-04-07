@@ -78,7 +78,7 @@ router.post('/', async (req, res) => {  // Rota para criar um novo servico no en
                     const file = req.files[key];  // Pega o arquivo
         
                     const nameParts = file.name.split('.'); // Separa o nome do arquivo por '.'
-                    const fileName = `${new Date().getTime()}.${  // Cria um nome para o arquivo com a data atual 
+                    const fileName = `${new Date().getTime()}.${  // Cria um nome para o arquivo com a data atual (milissegundos desde 1970)
                         nameParts[nameParts.length - 1] // Pega a última parte do nome do arquivo original, que é a extensão do arquivo
                     }`;  
                     const path = `servicos/${fileName}`; // Cria o caminho do arquivo no Amazon S3
@@ -132,7 +132,7 @@ router.get('/', async (req, res) => {  // Rota para buscar todos os servicos ati
                 referenciaID: servico._id,  // pelo ID do servico
                 model: 'Servico',  // E com model Servico
             }); 
-            todosServicos.push({ servico, arquivos });  // Adiciona o servico e os arquivos no array de todosServicos
+            todosServicos.push({ ...servico._doc, arquivos });  // Adiciona o servico e os arquivos no array de todosServicos
         } 
         res.json({error: false, servicosEncontrados: todosServicos});  // Retorna os servicos encontrados
 
@@ -264,16 +264,18 @@ router.delete('/delete/:id', async (req, res) => {  // Rota para deletar um serv
     }
 });
 
-router.delete('/arquivo/delete/:id', async (req, res) => {  // Rota para deletar um arquivo de um serviço pelo ID
+router.post('/delete-arquivo', async (req, res) => {  // Rota para deletar um arquivo de um serviço pelo ID
     try {
         
+        const { key } = req.body;
+
         // Deletar arquivo do MongoDB
-        const arquivoDeletado = await Arquivos.findByIdAndDelete(req.params.id);  // Busca e deleta o arquivo pelo ID no MongoDB
-        res.json({arquivoDeletado});  // Retorna o arquivo deletado
+        const arquivoDeletado = await Arquivos.findOneAndDelete({URL: key});  // Busca e deleta o arquivo pelo ID no MongoDB
         
         // Deletar arquivo da Amazon S3
-        await AWSService.deleteFileS3(arquivoDeletado.URL);  // Deleta o arquivo da Amazon S3 pelo caminho
-
+        await AWSService.deleteFileS3(key);  // Deleta o arquivo da Amazon S3 pelo caminho
+        
+        res.json({error: false});  // Retorna o arquivo deletado
     } catch (error) {
         res.json({ error: true, message: error.message });
     }

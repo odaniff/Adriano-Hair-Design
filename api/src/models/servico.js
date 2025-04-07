@@ -28,9 +28,10 @@ const servicoSchema = new mongoose.Schema({
         enum: ['A', 'I', 'E'],
         default: 'A',
     },
-    imagem: {
-        type: String,
+    dataCadastro: {
+        type: Date,
         required: true,
+        default: Date.now,
     },
 });
 

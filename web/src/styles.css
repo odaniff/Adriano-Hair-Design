@@ -1,0 +1,123 @@
+:root {  
+    --primary: #161616;
+    --dark: #161616;
+    --danger: #d62828;
+    --success: #06d6a0;
+    --white: #ffffff;
+}
+
+#root {
+    height: 100%;
+    width: 100%;
+    position: fixed;
+}
+
+header {
+    background-color: var(--primary);
+}
+
+header > div {
+    cursor: pointer;
+    transition: 1s;
+    padding: 10px 20px;
+    text-align: right;
+
+}
+
+header > div:hover {
+    background-color: rgba(0, 0, 0, 0.3);
+    transition: 0.5s;
+}
+
+header #logo {
+    width: 16%; /* o tamanho desejado */
+    height: auto; /* mantém a proporção */
+    object-fit: contain; /* garante que a imagem não será distorcida */
+    display: block; /* remove espaços indesejados abaixo da imagem */
+}
+
+header #foto_perfil {
+    width: 50px;
+    border-radius: 100%;
+    margin-left: 15px;
+}
+
+header span:not(.mdi) {
+    margin-bottom: -10px;
+}
+
+header span.mdi {
+    font-size: 20px;
+    margin-left: 10px;
+}
+
+header small {
+    display: block;
+    margin-top: -20px;
+}
+
+sidebar {
+    background-color: var(--dark);
+}
+
+sidebar ul li {
+    list-style: none;
+    width: 100%;
+    text-decoration: none;
+}
+
+sidebar ul li a{  
+    width: 100%; /* O width é 100% para ocupar toda a largura do sidebar */ 
+    color: white;
+    opacity: 0.7; /* O opacity é 0.7 para dar um efeito de transparência, isso faz com que o sidebar pareça mais leve e moderno */
+    display: flex; /* O display é flex para alinhar os itens do sidebar */
+    align-items: center; /* O align-items é center para alinhar os itens do sidebar */
+    padding: 5px 15px; /* O padding é 5px 15px para dar um espaço interno ao sidebar */
+    margin: 2.5px 0; /* O margin é 2.5px 0 para dar um espaço entre os itens do sidebar */
+    transition: all 0.5s ease; /* O transition é 0.5s para dar um efeito suave ao passar o mouse */
+    border-radius: 5px; /* O border-radius é 5px para dar um efeito de borda arredondada */
+    text-decoration: none;
+}
+
+sidebar ul li a:hover {
+    opacity: 1;
+    background-color: rgba(255, 255, 255, 0.1); /* Efeito de fundo sutil */
+    transform: translateX(5px); /* Movimento opcional */
+    cursor: pointer; /* Muda o cursor para pointer */
+    text-decoration: none; /* Remove o sublinhado do link */
+    color: var(--white); /* Muda a cor do texto para branco ao passar o mouse */
+}
+
+sidebar ul li a.active {
+    opacity: 1; /* O opacity é 1 para deixar o item ativo mais destacado */
+    background-color: rgba(255, 255, 255, 0.1); /* Efeito de fundo sutil */
+    transform: translateX(5px); /* Movimento opcional */
+    cursor: pointer; /* Muda o cursor para pointer */
+    text-decoration: none; /* Remove o sublinhado do link */
+    color: var(--white); /* Muda a cor do texto para branco ao passar o mouse */
+}
+
+sidebar ul li a .mdi {
+    font-size: 20px;
+    margin-right: 10px;
+}
+
+sidebar ul li a.active .mdi {
+    color: var(--success);
+}
+
+sidebar ul li a text {
+    font-size: 16px;
+}
+
+.btn-primary {
+    background-color: var(--primary) !important;
+    border-color: var(--primary);
+}
+  
+.btn-primary:hover {
+    opacity: 0.95;
+    background-color: rgba(255, 255, 255, 0.466); /* Efeito de fundo sutil */
+    text-decoration: none; /* Remove o sublinhado do link */
+}
+  
