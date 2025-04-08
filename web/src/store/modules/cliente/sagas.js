@@ -84,8 +84,8 @@ export function* addCliente() {
         formData.append("cliente", JSON.stringify(cliente));
   
         // Se tiver algum arquivo (ex: foto do cliente), adiciona aqui:
-        if (cliente.foto) {
-            formData.append("foto", cliente.foto); // `foto` é um File vindo do input
+        if (cliente.arquivo) {
+            formData.append("foto", cliente.arquivo); // `foto` é um File vindo do input
         }
 
         // Faz a requisição para a rota com arquivo

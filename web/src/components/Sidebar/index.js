@@ -6,7 +6,10 @@ import { Link, useLocation } from "react-router-dom";
 const Sidebar = () => {
     // useLocation é um hook do React Router que retorna o objeto de localização atual
     // Que fornece as propriedades de navegação do Router para o componente Sidebar
-    const location = useLocation(); 
+    const location = useLocation();
+    
+    const role = localStorage.getItem('userRole');
+
     
     return (
         <sidebar className="col-2 h-100">
@@ -18,24 +21,29 @@ const Sidebar = () => {
                     <text>Agendamentos</text>
                     </Link>
                 </li>
-                <li>
-                    <Link to="/clientes" className={location.pathname === "/clientes" ? "active" : ""}>
-                    <span className="mdi mdi-account-multiple"></span>
-                    <text>Clientes</text>
-                    </Link>
-                </li>
-                <li>
-                    <Link to="/servicos" className={location.pathname === "/servicos" ? "active" : ""}>
-                    <span className="mdi mdi-content-cut"></span>
-                    <text>Serviços</text>
-                    </Link>
-                </li>
-                <li>
-                    <Link to="/horarios" className={location.pathname === "/horarios" ? "active" : ""}>
-                    <span className="mdi mdi-clock-check-outline"></span>
-                    <text>Horarios</text>
-                    </Link>
-                </li>
+                
+                {role === 'admin' && (  // SÓ RENDERIZA SE O userRole = "admin"
+                    <>   
+                        <li>
+                            <Link to="/clientes" className={location.pathname === "/clientes" ? "active" : ""}>
+                            <span className="mdi mdi-account-multiple"></span>
+                            <text>Clientes</text>
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to="/servicos" className={location.pathname === "/servicos" ? "active" : ""}>
+                            <span className="mdi mdi-content-cut"></span>
+                            <text>Serviços</text>
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to="/horarios" className={location.pathname === "/horarios" ? "active" : ""}>
+                            <span className="mdi mdi-clock-check-outline"></span>
+                            <text>Horarios</text>
+                            </Link>
+                        </li>
+                    </> 
+                )};
             </ul>
         </sidebar>
       );

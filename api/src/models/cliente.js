@@ -62,6 +62,10 @@ const clienteSchema = new mongoose.Schema({
             required: true,
         },
     },
+    senha: {
+        type: String,
+        required: true,
+    },
     dataCadastro: {
         type: Date,
         required: true,

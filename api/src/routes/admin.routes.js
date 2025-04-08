@@ -17,5 +17,22 @@ router.post('/', async (req, res) => {  // Rota para criar um novo admin
     }
 }); 
 
+router.post('/auth/admin', async (req, res) => {  // Rota para LOGIN do Admin
+    try {
+        const { email, senha } = req.body;
+        const admin = await Admin.findOne({ email, senha })
+
+        if(admin) {
+            res.json({error:false, admin})
+        } else {
+            res.json({error:true, message: "Nenhum admin encontrado"});
+        }
+
+    } catch (error) {
+        console.log(error);
+        res.json({error:true, message: error.message});  // Retorna o erro com o status 400
+    }
+}); 
+
 export default router;  // Exporta o router para ser usado no arquivo principal da API
 

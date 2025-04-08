@@ -21,6 +21,7 @@ const INITIAL_STATE = {
       dataNascimento: '',
       sexo: 'F',
       status: 'A',
+      senha:'',
       documento: {
         tipo: 'CPF',
         numero: '',

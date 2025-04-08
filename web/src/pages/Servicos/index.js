@@ -346,23 +346,8 @@ const Servicos = () => {
                     >
                         <span className="mdi mdi-pencil"></span>
                     </Button>
-                    <Button
-                        appearance='subtle'
-                        color="red"
-                        size="sm"
-                        className="ml-2"
-                        onClick={() => {
-                        dispatch(
-                            updateServico({
-                            servico: item,
-                            })
-                        );
-                        setComponents('confirmDelete', true);
-                        }}
-                    >
-                        <span className="mdi mdi-trash-can"></span>
-                    </Button>
-                    </>
+                </>
+
                 )}
                 onrowclick={(servico) => {
                 dispatch (

@@ -219,6 +219,19 @@ const Clientes = () => {
                             />
                         </div>
 
+                        <div className="form-group col-9">
+                            <b className="">Senha</b>
+                            <input
+                                type="text"
+                                className="form-control"
+                                placeholder="Senha"
+                                disabled={form.disabled}
+                                value={cliente.senha}
+                                onChange={(e) =>
+                                setCliente('senha', e.target.value)}
+                            />
+                        </div>
+
                     </div>
 
                     {behavior !== 'create' && (

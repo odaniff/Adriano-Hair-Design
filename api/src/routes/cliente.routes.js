@@ -46,6 +46,23 @@ const router = express.Router();
 
 // }); ESSA ROTA NÃO ENVIA OS ARQUIVOS
 
+router.post('/auth/cliente', async (req, res) => {  // Rota para LOGIN do cliente
+    try {
+        const { email, senha } = req.body;
+        const cliente = await Cliente.findOne({ email, senha })
+
+        if(cliente) {
+            res.json({error:false, cliente})
+        } else {
+            res.json({error:true, message: "Nenhum cliente encontrado"});
+        }
+
+    } catch (error) {
+        console.log(error);
+        res.json({error:true, message: error.message});  // Retorna o erro com o status 400
+    }
+}); 
+
 router.post('/', async (req, res) => {
     const db = mongoose.connection;  // Conexão com o banco de dados
     const session = await db.startSession();  // Inicia uma sessão

@@ -1,4 +1,4 @@
-:root {  
+:root {
     --primary: #161616;
     --dark: #161616;
     --danger: #d62828;
@@ -6,58 +6,71 @@
     --white: #ffffff;
 }
 
-#root {
+/* RESET GLOBAL */
+html, body, #root {
     height: 100%;
-    width: 100%;
-    position: fixed;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+#root {
+    display: flex;
+    flex-direction: column;
+}
+
+/* CONTAINER PRINCIPAL */
+.app-container {
+    display: flex;   /*AQUIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII*/
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* ÁREA PRINCIPAL DO CONTEÚDO */
+.main-content {
+    display: flex;
+    flex: 1;
+    width: 100%;
+}
+
+/* WRAPPER CENTRAL (CONTEÚDO DA PÁGINA SEM SIDEBAR) */
+.content-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+/* CONTEÚDO RENDERIZADO PELAS ROTAS */
+.page-content {
+    flex: 1;
+    overflow-y: auto;
+}
+
+/* HEADER */
 header {
     background-color: var(--primary);
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.74);
+    z-index: 10;
 }
 
-header > div {
-    cursor: pointer;
-    transition: 1s;
-    padding: 10px 20px;
-    text-align: right;
-
+#logo {
+    max-height: 40px;
+    width: auto;
+    object-fit: contain;
 }
 
-header > div:hover {
-    background-color: rgba(0, 0, 0, 0.3);
-    transition: 0.5s;
-}
 
-header #logo {
-    width: 16%; /* o tamanho desejado */
-    height: auto; /* mantém a proporção */
-    object-fit: contain; /* garante que a imagem não será distorcida */
-    display: block; /* remove espaços indesejados abaixo da imagem */
-}
-
-header #foto_perfil {
-    width: 50px;
-    border-radius: 100%;
-    margin-left: 15px;
-}
-
-header span:not(.mdi) {
-    margin-bottom: -10px;
-}
-
-header span.mdi {
-    font-size: 20px;
-    margin-left: 10px;
-}
-
-header small {
-    display: block;
-    margin-top: -20px;
-}
-
+/* SIDEBAR */
 sidebar {
     background-color: var(--dark);
+    height: 100vh;
+    width: 250px;
+    top: 0;
 }
 
 sidebar ul li {
@@ -66,35 +79,27 @@ sidebar ul li {
     text-decoration: none;
 }
 
-sidebar ul li a{  
-    width: 100%; /* O width é 100% para ocupar toda a largura do sidebar */ 
+sidebar ul li a {
+    width: 100%;
     color: white;
-    opacity: 0.7; /* O opacity é 0.7 para dar um efeito de transparência, isso faz com que o sidebar pareça mais leve e moderno */
-    display: flex; /* O display é flex para alinhar os itens do sidebar */
-    align-items: center; /* O align-items é center para alinhar os itens do sidebar */
-    padding: 5px 15px; /* O padding é 5px 15px para dar um espaço interno ao sidebar */
-    margin: 2.5px 0; /* O margin é 2.5px 0 para dar um espaço entre os itens do sidebar */
-    transition: all 0.5s ease; /* O transition é 0.5s para dar um efeito suave ao passar o mouse */
-    border-radius: 5px; /* O border-radius é 5px para dar um efeito de borda arredondada */
+    opacity: 0.7;
+    display: flex;
+    align-items: center;
+    padding: 5px 15px;
+    margin: 2.5px 0;
+    transition: all 0.5s ease;
+    border-radius: 5px;
     text-decoration: none;
 }
 
-sidebar ul li a:hover {
-    opacity: 1;
-    background-color: rgba(255, 255, 255, 0.1); /* Efeito de fundo sutil */
-    transform: translateX(5px); /* Movimento opcional */
-    cursor: pointer; /* Muda o cursor para pointer */
-    text-decoration: none; /* Remove o sublinhado do link */
-    color: var(--white); /* Muda a cor do texto para branco ao passar o mouse */
-}
-
+sidebar ul li a:hover,
 sidebar ul li a.active {
-    opacity: 1; /* O opacity é 1 para deixar o item ativo mais destacado */
-    background-color: rgba(255, 255, 255, 0.1); /* Efeito de fundo sutil */
-    transform: translateX(5px); /* Movimento opcional */
-    cursor: pointer; /* Muda o cursor para pointer */
-    text-decoration: none; /* Remove o sublinhado do link */
-    color: var(--white); /* Muda a cor do texto para branco ao passar o mouse */
+    opacity: 1;
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: translateX(5px);
+    cursor: pointer;
+    color: var(--white);
+    text-decoration: none;
 }
 
 sidebar ul li a .mdi {
@@ -110,14 +115,148 @@ sidebar ul li a text {
     font-size: 16px;
 }
 
+/* FOOTER - VERSÃO ATUALIZADA */
+.footer-container {
+    background-color: var(--dark);
+    color: var(--white);
+    padding: 20px 20px 0;
+    margin-top: auto; /* Isso empurra o footer para baixo */
+    width: 100%;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+    /* Removi o max-height que limitava o conteúdo */
+}
+
+
+.footer-title {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.footer-title::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    width: 50px;
+    height: 2px;
+    background-color: var(--success);
+}
+
+.footer-text {
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.6;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.contact-item .mdi {
+    margin-right: 10px;
+    color: var(--success);
+}
+
+/* LINKS DO FOOTER */
+.footer-section.links ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.footer-section.links a {
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    display: block;
+    margin-bottom: 10px;
+    transition: all 0.3s ease;
+}
+
+.footer-section.links a:hover {
+    color: var(--success);
+    padding-left: 5px;
+}
+
+/* BOTÕES SOCIAIS */
+.social-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.social-buttons .rs-btn {
+    background-color: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+}
+
+.social-buttons .rs-btn:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.footer-bottom {
+    background-color: rgba(0, 0, 0, 0.3);
+    text-align: center;
+    padding: 10px 0;
+    margin-top: 30px;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.9rem;
+}
+
+/* BOTÕES */
 .btn-primary {
     background-color: var(--primary) !important;
     border-color: var(--primary);
+    color: var(--white);
 }
-  
+
 .btn-primary:hover {
     opacity: 0.95;
-    background-color: rgba(255, 255, 255, 0.466); /* Efeito de fundo sutil */
-    text-decoration: none; /* Remove o sublinhado do link */
+    background-color: rgba(255, 255, 255, 0.1);
 }
-  
+
+/* RESPONSIVIDADE */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        padding: 10px;
+    }
+
+    #logo {
+        max-height: 30px;
+    }
+
+    .footer-content {
+        grid-template-columns: 1fr;
+    }
+
+    .footer-section {
+        text-align: center;
+    }
+
+    .contact-item {
+        justify-content: center;
+    }
+
+    .social-buttons {
+        justify-content: center;
+    }
+
+    .footer-title::after {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}

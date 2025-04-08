@@ -8,7 +8,6 @@ const adminSchema = new mongoose.Schema({
     // },
     nome: {
         type: String,
-        required: true,
     },
     email: {
         type: String,
@@ -17,24 +16,6 @@ const adminSchema = new mongoose.Schema({
     senha: {
         type: String,
         required: true,
-    },
-    cpf: {
-        type: String,
-        required: true,
-    },
-    telefone: {
-        type: String,
-        required: true,
-    },
-    dataNascimento: {
-        type: String,
-        required: true,
-    },
-    status : {
-        type: String,
-        required: true,
-        enum: ['A', 'I', 'E'],
-        default: 'A',
     },
     dataCadastro: {
         type: Date,
