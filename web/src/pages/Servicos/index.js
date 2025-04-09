@@ -11,16 +11,14 @@ import {
     resetServico,
     removeServico,
 } from '../../store/modules/servico/actions';
-import util from '../../services/util';
+import awsConfig from '../../services/util';
 
 import {
     DatePicker,
     Drawer,
-    Nav,
-    Badge,
     Uploader,
     Button,
-    toaster as Notification,
+    // toaster as Notification,
     Tag,
     Modal,
 } from 'rsuite';
@@ -189,7 +187,7 @@ const Servicos = () => {
                     defaultFileList={servico.arquivos.map((arquivo, index) => ({
                         name: arquivo?.URL,
                         fileKey: index,
-                        url: `${util.AWS_BUCKET_URL}/${arquivo?.URL}`,
+                        url: `${awsConfig.AWS_BUCKET_URL}/${arquivo?.URL}`,
                     }))}
                     onChange={(files) => {
                         const arquivos = files
@@ -253,7 +251,7 @@ const Servicos = () => {
             <div>Essa ação será irreversível!</div>
         </Modal.Body>
         <Modal.Footer className='text-center'>
-            <Button loading={form.saving} onClick={() => remove()} color="red">
+            <Button loading={form.saving} onClick={() => remove()} appearance='primary' color="red">
             Sim, tenho certeza!
             </Button>
             <Button
@@ -297,7 +295,7 @@ const Servicos = () => {
                     key: 'titulo',
                     sortable: true,
                     fixed: true,
-                    width: 225,
+                    width: 175,
                     },
                     {
                     label: 'Duração',

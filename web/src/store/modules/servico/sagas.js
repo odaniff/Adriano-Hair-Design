@@ -42,12 +42,13 @@ export function* addServico() {
     yield put(allServicosAction());
     yield put(updateServico({ components: { ...components, drawer: false } }));
     yield put(resetServico());
+    yield put(allServicos());
 
-    notification('success', {
-      placement: 'topStart',
-      title: 'Feitoooo!!',
-      description: 'Serviço salvo com sucesso!',
-    });
+    // notification('success', {
+    //   placement: 'topStart',
+    //   title: 'Feitoooo!!',
+    //   description: 'Serviço salvo com sucesso!',
+    // });
   } catch (err) {
     yield put(updateServico({ form: { ...form, saving: false } }));
     notification('error', {
@@ -71,13 +72,14 @@ export function* allServicos() {
     yield put(updateServico({ form: { ...form, filtering: false } }));
 
     if (res.error) {
-      // ALERT DO RSUITE
-      notification('error', {
-        placement: 'topStart',
-        title: 'Ops...',
-        description: res.message,
-      });
+      alert(res.message);
       return false;
+      // // ALERT DO RSUITE
+      // notification('error', {
+      //   placement: 'topStart',
+      //   title: 'Ops...',
+      //   description: res.message,
+      // });
     }
 
     yield put(updateServico({ servicos: res.servicosEncontrados }));
@@ -85,11 +87,12 @@ export function* allServicos() {
   } catch (err) {
     // COLOCAR AQUI O ALERT DO RSUITE
     yield put(updateServico({ form: { ...form, filtering: false } }));
-    notification('error', {
-      placement: 'topStart',
-      title: 'Ops...',
-      description: err.message,
-    });
+    alert(err.message);
+    // notification('error', {
+    //   placement: 'topStart',
+    //   title: 'Ops...',
+    //   description: err.message,
+    // });
   }
 }
 

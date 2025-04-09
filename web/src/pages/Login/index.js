@@ -79,6 +79,18 @@ const Login = () => {
         >
           Entrar
         </Button>
+
+        <Button 
+          appearance="ghost" 
+          block 
+          onClick={() => {
+            navigate('/login?admin=true')
+            }
+          }
+          style={styles.linkButton}
+        >
+          Sou Administrador
+        </Button>
         
         {!isAdmin && (
           <Button 
@@ -90,6 +102,7 @@ const Login = () => {
             Não tem conta? Cadastre-se
           </Button>
         )}
+        
       </Panel>
     </div>
   );

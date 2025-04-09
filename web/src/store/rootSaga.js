@@ -4,6 +4,7 @@ import agendamento from './modules/agendamento/sagas';
 import cliente from './modules/cliente/sagas';
 import servico from './modules/servico/sagas';
 import auth from './modules/auth/sagas';
+import horario from './modules/horario/sagas';
 
 export default function* rootSaga(){
     return yield all([
@@ -11,5 +12,6 @@ export default function* rootSaga(){
         cliente,
         servico,
         auth,
+        horario,
     ]);
 };

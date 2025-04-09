@@ -231,6 +231,12 @@
   color: var(--white);
 }
 
+.rbc-time-header .rbc-header {
+  margin: 0;
+  padding-bottom: 20px;
+  padding-top: 10;
+}
+
 .rbc-time-header-content {
   border-left: 1px solid rgba(255, 255, 255, 0.1);
 }
@@ -305,6 +311,13 @@
   max-height: 90vh; /* Permite que o calendário ocupe 90% da tela */
   overflow-y: auto;
 }
+
+/* Cor de fundo da seleção (SELECTABLE={TRUE}) */
+.rbc-slot-selection {
+  background-color: rgba(100, 148, 237, 0.904); /* azul claro com transparência */
+  border: 1px solid #6495ED; /* azul cornflower */
+}
+
 
 /* Responsividade */
 @media (max-width: 768px) {

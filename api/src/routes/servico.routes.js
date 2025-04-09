@@ -264,7 +264,7 @@ router.delete('/delete/:id', async (req, res) => {  // Rota para deletar um serv
     }
 });
 
-router.post('/delete-arquivo', async (req, res) => {  // Rota para deletar um arquivo de um serviço pelo ID
+router.post('/delete-arquivo/', async (req, res) => {  // Rota para deletar um arquivo de um serviço pelo ID
     try {
         
         const { key } = req.body;

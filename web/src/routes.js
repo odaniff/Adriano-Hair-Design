@@ -13,6 +13,7 @@ import Clientes from './pages/Clientes';
 import Servicos from './pages/Servicos';
 import Cadastro from "./pages/Cadastro";
 import Login from "./pages/Login";
+import Horarios from './pages/Horarios';
 
 const Rotas = () => {
     const { signed } = useSelector(state => state.auth);
@@ -28,6 +29,7 @@ const Rotas = () => {
                 <div className="content-wrapper">
                     <main className="page-content">
                         <Routes>
+                            
                             <Route path="/" element={<Cadastro />} />
                             <Route path="/login" element={<Login />} />
 
@@ -55,6 +57,15 @@ const Rotas = () => {
                                     </PrivateRoute>
                                 }
                             />
+                            <Route
+                                path="/horarios"
+                                element={
+                                    <PrivateRoute>
+                                        <Horarios />
+                                    </PrivateRoute>
+                                }
+                            />
+
                         </Routes>
                     </main>
                 </div>
