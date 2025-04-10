@@ -49,7 +49,7 @@ const router = express.Router();
 router.post('/auth/cliente', async (req, res) => {  // Rota para LOGIN do cliente
     try {
         const { email, senha } = req.body;
-        const cliente = await Cliente.findOne({ email, senha })
+        const cliente = await Cliente.findOne({ email, senha, status:"A" })
 
         if(cliente) {
             res.json({error:false, cliente})

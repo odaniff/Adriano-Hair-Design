@@ -23,7 +23,7 @@ import {
     Modal,
 } from 'rsuite';
 import ModalTitle from 'rsuite/esm/Modal/ModalTitle';
-import CheckRoundIcon from '@rsuite/icons/CheckRound';
+// import CheckRoundIcon from '@rsuite/icons/CheckRound';
 import WarningRoundIcon from '@rsuite/icons/WarningRound';
 // import RemindFillIcon from '@rsuite/icons/RemindFill';
 
@@ -58,25 +58,6 @@ const DashboardServicos = () => {
   };
 
   const save = () => {
-    // if (
-    //   !util.allFields(servico, [
-    //     'titulo',
-    //     'preco',
-    //     'comissao',
-    //     'duracao',
-    //     'descricao',
-    //     'status',
-    //     'arquivos',
-    //   ])
-    // ) {
-    //   // DISPARAR O ALERTA
-    //   Notification.error({
-    //     placement: 'topStart',
-    //     title: 'Calma lá!',
-    //     description: 'Antes de prosseguir, preencha todos os campos!',
-    //   });
-    //   return false;
-    // }
 
     if (behavior === 'create') {
       dispatch(addServico());

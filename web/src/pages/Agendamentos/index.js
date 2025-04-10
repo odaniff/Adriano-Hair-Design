@@ -91,29 +91,29 @@ const Agendamentos = () => {
     );
   };
 
-  const onAgendamentoClick = (agendamento) => {
-    dispatch(
-      updateAgendamento({
-        agendamento,
-        behavior: 'update',
-      })
-    );
-    setComponents('drawer', true);
-  };
+  // const onAgendamentoClick = (agendamento) => {
+  //   dispatch(
+  //     updateAgendamento({
+  //       agendamento,
+  //       behavior: 'update',
+  //     })
+  //   );
+  //   setComponents('drawer', true);
+  // };
 
 
   const save = () => {
       dispatch(addAgendamento());
-      const start = moment().startOf('month').format('YYYY-MM-DD');
-      const end = moment().endOf('month').format('YYYY-MM-DD');
+      const start = moment().startOf('year').format('YYYY-MM-DD');
+      const end = moment().endOf('year').format('YYYY-MM-DD');
       dispatch(filterAgendamento(start, end));
   };
 
   const remove = () => {
     // PERFORM REMOVE
     dispatch(removeAgendamento());
-    const start = moment().startOf('month').format('YYYY-MM-DD');
-    const end = moment().endOf('month').format('YYYY-MM-DD');
+    const start = moment().startOf('year').format('YYYY-MM-DD');
+    const end = moment().endOf('year').format('YYYY-MM-DD');
     dispatch(filterAgendamento(start, end));
   };
 
@@ -123,8 +123,8 @@ const Agendamentos = () => {
     dispatch(allHorarios());
     dispatch(
                 filterAgendamento(
-                    moment().startOf('month').format('YYYY-MM-DD'), // start
-                    moment().endOf('month').format('YYYY-MM-DD')  // end
+                    moment().startOf('year').format('YYYY-MM-DD'), // start
+                    moment().endOf('year').format('YYYY-MM-DD')  // end
                 )
             )
   }, [dispatch]);
@@ -206,7 +206,7 @@ const Agendamentos = () => {
             </Button>
           )}
             
-          {behavior === 'update' && (
+          {/* {behavior === 'update' && (
             <Button
               loading={form.saving}
               appearance='primary'
@@ -218,7 +218,7 @@ const Agendamentos = () => {
             >
               Remover Agendamento
             </Button>
-          )}
+          )} */}
 
         </Drawer.Body>
       </Drawer>
@@ -314,9 +314,9 @@ const Agendamentos = () => {
                   const {start, end } = formatRange(periodo)
                   dispatch(filterAgendamento(start, end))
               }}
-              onSelectEvent={(e) => {
-                onAgendamentoClick(e.resource);
-              }}
+              // onSelectEvent={(e) => {
+              //   onAgendamentoClick(e.resource);
+              // }}
               events={formatEventos}
               defaultView='month' // inicia o calendário no modo mês
               selectable={true}

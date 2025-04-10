@@ -65,8 +65,8 @@ export function* addAgendamento() {
     }
 
     yield put(filterAgendamentoAction(
-      moment().startOf('month').format('YYYY-MM-DD'),
-      moment().endOf('month').format('YYYY-MM-DD')
+      moment().startOf('year').format('YYYY-MM-DD'),
+      moment().endOf('year').format('YYYY-MM-DD')
     ));
     yield put(updateAgendamento({ components: { ...components, drawer: false, confirmSave: false } }));
     yield put(resetAgendamento());
@@ -197,8 +197,8 @@ export function* removeAgendamento() {
     }
 
     yield put(filterAgendamentoAction(
-      moment().startOf('month').format('YYYY-MM-DD'),
-      moment().endOf('month').format('YYYY-MM-DD')
+      moment().startOf('year').format('YYYY-MM-DD'),
+      moment().endOf('year').format('YYYY-MM-DD')
     ));
     yield put(
       updateAgendamento({
