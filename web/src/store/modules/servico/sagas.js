@@ -6,7 +6,7 @@ import {
   allServicos as allServicosAction,
 } from './actions';
 import api from '../../../services/api';
-import { notification } from '../../../services/rsuite';
+import { toaster, Message } from 'rsuite';
 
 
 export function* addServico() {
@@ -30,12 +30,10 @@ export function* addServico() {
     yield put(updateServico({ form: { ...form, saving: false } }));
 
     if (res.error) {
-      // ALERT DO RSUITE
-      notification('error', {
-        placement: 'topStart',
-        title: 'Ops...',
-        description: res.message,
-      });
+      toaster.push(
+        <Message showIcon type="error">Serviço não criado!</Message>,
+        { placement: 'topEnd' }
+      );
       return false;
     }
 
@@ -44,18 +42,17 @@ export function* addServico() {
     yield put(resetServico());
     yield put(allServicos());
 
-    // notification('success', {
-    //   placement: 'topStart',
-    //   title: 'Feitoooo!!',
-    //   description: 'Serviço salvo com sucesso!',
-    // });
+    toaster.push(
+      <Message showIcon type="success">Serviço criado com sucesso!</Message>,
+      { placement: 'topEnd' }
+    );
+
   } catch (err) {
     yield put(updateServico({ form: { ...form, saving: false } }));
-    notification('error', {
-      placement: 'topStart',
-      title: 'Ops...',
-      description: err.message,
-    });
+    toaster.push(
+        <Message showIcon type="success">Serviço criado com sucesso!</Message>,
+        { placement: 'topEnd' }
+      );
   }
 }
 
@@ -75,11 +72,6 @@ export function* allServicos() {
       alert(res.message);
       return false;
       // // ALERT DO RSUITE
-      // notification('error', {
-      //   placement: 'topStart',
-      //   title: 'Ops...',
-      //   description: res.message,
-      // });
     }
 
     yield put(updateServico({ servicos: res.servicosEncontrados }));
@@ -88,11 +80,6 @@ export function* allServicos() {
     // COLOCAR AQUI O ALERT DO RSUITE
     yield put(updateServico({ form: { ...form, filtering: false } }));
     alert(err.message);
-    // notification('error', {
-    //   placement: 'topStart',
-    //   title: 'Ops...',
-    //   description: err.message,
-    // });
   }
 }
 
@@ -108,22 +95,25 @@ export function* removeArquivo({ key }) {
 
     if (res.error) {
       // ALERT DO RSUITE
-      notification('error', {
-        placement: 'topStart',
-        title: 'Ops...',
-        description: res.message,
-      });
+      toaster.push(
+        <Message showIcon type="error">Imagem não removida!</Message>,
+        { placement: 'topEnd' }
+      );
       return false;
     }
+
+    toaster.push(
+      <Message showIcon type="success">Imagem removida com sucesso!</Message>,
+      { placement: 'topEnd' }
+    );
 
   } catch (err) {
     // COLOCAR AQUI O ALERT DO RSUITE
     yield put(updateServico({ form: { ...form, saving: false } }));
-    notification('error', {
-      placement: 'topStart',
-      title: 'Ops...',
-      description: err.message,
-    });
+    toaster.push(
+      <Message showIcon type="error">Imagem não removida!</Message>,
+      { placement: 'topEnd' }
+    );
   }
 }
 
@@ -148,11 +138,10 @@ export function* saveServico() {
 
     if (res.error) {
       // ALERT DO RSUITE
-      notification('error', {
-        placement: 'topStart',
-        title: 'Ops...',
-        description: res.message,
-      });
+      toaster.push(
+        <Message showIcon type="error">Serviço não atualizado!</Message>,
+        { placement: 'topEnd' }
+      );
       return false;
     }
 
@@ -160,18 +149,16 @@ export function* saveServico() {
     yield put(updateServico({ components: { ...components, drawer: false } }));
     yield put(resetServico());
 
-    notification('success', {
-      placement: 'topStart',
-      title: 'Feitoooo!!',
-      description: 'Serviço salvo com sucesso!',
-    });
+    toaster.push(
+      <Message showIcon type="success">Serviço atualizado com sucesso!</Message>,
+      { placement: 'topEnd' }
+    );
   } catch (err) {
     yield put(updateServico({ form: { ...form, saving: false } }));
-    notification('error', {
-      placement: 'topStart',
-      title: 'Ops...',
-      description: err.message,
-    });
+    toaster.push(
+      <Message showIcon type="error">Serviço não atualizado!</Message>,
+      { placement: 'topEnd' }
+    );
   }
 }
 
@@ -186,11 +173,10 @@ export function* removeServico() {
 
     if (res.error) {
       // ALERT DO RSUITE
-      notification('error', {
-        placement: 'topStart',
-        title: 'Ops...',
-        description: res.message,
-      });
+      toaster.push(
+        <Message showIcon type="error">Serviço não removido!</Message>,
+        { placement: 'topEnd' }
+      );
       return false;
     }
 
@@ -200,14 +186,19 @@ export function* removeServico() {
         components: { ...components, drawer: false, confirmDelete: false },
       })
     );
+
+    toaster.push(
+      <Message showIcon type="success">Serviço removido com sucesso!</Message>,
+      { placement: 'topEnd' }
+    );
+
   } catch (err) {
     // COLOCAR AQUI O ALERT DO RSUITE
     yield put(updateServico({ form: { ...form, saving: false } }));
-    notification('error', {
-      placement: 'topStart',
-      title: 'Ops...',
-      description: err.message,
-    });
+    toaster.push(
+      <Message showIcon type="error">Serviço não removido!</Message>,
+      { placement: 'topEnd' }
+    );
   }
 }
 

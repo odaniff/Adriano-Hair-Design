@@ -14,6 +14,8 @@ import Servicos from './pages/Servicos';
 import Cadastro from "./pages/Cadastro";
 import Login from "./pages/Login";
 import Horarios from './pages/Horarios';
+import DashboardAgendamentos from './pages/Dashboard_Agendamentos';
+import DashboardServicos from './pages/Dashboard_Servicos';
 
 const Rotas = () => {
     const { signed } = useSelector(state => state.auth);
@@ -62,6 +64,22 @@ const Rotas = () => {
                                 element={
                                     <PrivateRoute>
                                         <Horarios />
+                                    </PrivateRoute>
+                                }
+                            />
+                            <Route
+                                path="dashboard/agendamentos"
+                                element={
+                                    <PrivateRoute> 
+                                        <DashboardAgendamentos />
+                                    </PrivateRoute>
+                                }
+                            />
+                            <Route
+                                path="dashboard/servicos"
+                                element={
+                                    <PrivateRoute> 
+                                        <DashboardServicos />
                                     </PrivateRoute>
                                 }
                             />

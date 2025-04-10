@@ -3,6 +3,7 @@ import api from '../../../services/api';
 import { updateCliente, allClientes as allClientesAction, resetCliente} from './actions';
 // import consts from '../../../consts';
 import types from './types';
+import { toaster, Message } from 'rsuite';
 
 export function* allClientes() {
     
@@ -18,15 +19,22 @@ export function* allClientes() {
         yield put(updateCliente({ form: { ...form, filtering:false } }));
         
         if(res.error) {
-            alert('Erro ao buscar clientes', res.message);
+          toaster.push(
+            <Message showIcon type="error">Erro ao buscar clientes!</Message>,
+            { placement: 'topEnd' }
+          );
             return false;
         }
 
         yield put(updateCliente({ clientes: res.clientesEncontrados }));
 
     } catch (error) {
-        yield put(updateCliente({ form: {...form, filtering:false } }));
-        alert('Erro ao buscar clientes', error.message);
+      yield put(updateCliente({ form: {...form, filtering:false } }));
+      toaster.push(
+        <Message showIcon type="error">Erro ao buscar clientes!</Message>,
+        { placement: 'topEnd' }
+      );  
+        
     }
 }
 
@@ -50,7 +58,10 @@ export function* filterCliente() {
         yield put(updateCliente({ form: {...form, filtering:false } }));
         
         if(res.error) {
-            alert('Erro ao buscar cliente', res.message);
+          toaster.push(
+            <Message showIcon type="error">Erro ao buscar clientes!</Message>,
+            { placement: 'topEnd' }
+          );
             return false;
         }
 
@@ -68,7 +79,10 @@ export function* filterCliente() {
 
     } catch (error) {
         yield put(updateCliente({ form: {...form, filtering:false } }));
-        alert('Erro ao buscar clientes', error.message);
+         toaster.push(
+            <Message showIcon type="error">Erro ao buscar clientes!</Message>,
+            { placement: 'topEnd' }
+          );
     }
 }
 
@@ -98,7 +112,10 @@ export function* addCliente() {
         yield put(updateCliente({ form: { ...form, saving: false } }));
   
         if (res.error) {
-            alert("Erro ao adicionar cliente", res.message);
+          toaster.push(
+            <Message showIcon type="error">Cliente não cadastrado!</Message>,
+            { placement: 'topEnd' }
+          );
             return false;
         }
   
@@ -106,9 +123,17 @@ export function* addCliente() {
         yield put(updateCliente({ components: { ...components, drawer: false } }));
         yield put(resetCliente());
   
+        toaster.push(
+          <Message showIcon type="success">Cliente cadastrado com sucesso!</Message>,
+          { placement: 'topEnd' }
+        );
+
     } catch (error) {
         yield put(updateCliente({ form: { ...form, saving: false } }));
-        alert("Erro ao adicionar cliente", error.message);
+        toaster.push(
+          <Message showIcon type="error">Cliente não cadastrado!</Message>,
+          { placement: 'topEnd' }
+        );
     }
 }
   
@@ -128,21 +153,14 @@ export function* unlinkCliente({ payload }) {
         throw new Error(res.message);
       }
   
-    //   if (res.error) {
-    //     // ALERT DO RSUITE
-    //     notification('error', {
-    //       placement: 'topStart',
-    //       title: 'Ops...',
-    //       description: res.message,
-    //     });
-    //     return false;
-    //   }
-  
-    //   notification('success', {
-    //     placement: 'topStart',
-    //     title: 'Tudo certo',
-    //     description: 'O cliente foi desvinculado com sucesso!',
-    //   });
+      if (res.error) {
+        // ALERT DO RSUITE
+        toaster.push(
+          <Message showIcon type="error">Cliente não inativado!</Message>,
+          { placement: 'topEnd' }
+        );
+        return false;
+      }
   
       yield put(allClientesAction());
       yield put(
@@ -150,15 +168,19 @@ export function* unlinkCliente({ payload }) {
           components: { ...components, drawer: false, confirmDelete: false },
         })
       );
+
+      toaster.push(
+        <Message showIcon type="success">Cliente inativado com sucesso!</Message>,
+        { placement: 'topEnd' }
+      );
+
     } catch (err) {
       // COLOCAR AQUI O ALERT DO RSUITE
       yield put(updateCliente({ form: { ...form, saving: false } }));
-      console.log(err);
-    //   notification('error', {
-    //     placement: 'topStart',
-    //     title: 'Ops...',
-    //     description: err.message,
-    //   });
+      toaster.push(
+        <Message showIcon type="error">Cliente não inativado!</Message>,
+        { placement: 'topEnd' }
+      );
     }
 }
 
@@ -178,21 +200,15 @@ export function* linkCliente({ payload }) {
       throw new Error(res.message);
     }
 
-  //   if (res.error) {
-  //     // ALERT DO RSUITE
-  //     notification('error', {
-  //       placement: 'topStart',
-  //       title: 'Ops...',
-  //       description: res.message,
-  //     });
-  //     return false;
-  //   }
+    if (res.error) {
+      // ALERT DO RSUITE
+      toaster.push(
+        <Message showIcon type="error">Cliente não ativado!</Message>,
+        { placement: 'topEnd' }
+      );
+      return false;
+    }
 
-  //   notification('success', {
-  //     placement: 'topStart',
-  //     title: 'Tudo certo',
-  //     description: 'O cliente foi desvinculado com sucesso!',
-  //   });
 
     yield put(allClientesAction());
     yield put(
@@ -202,15 +218,18 @@ export function* linkCliente({ payload }) {
     );
     yield put(resetCliente())
 
+    toaster.push(
+      <Message showIcon type="success">Cliente ativado com sucesso!</Message>,
+      { placement: 'topEnd' }
+    );
+
   } catch (err) {
     // COLOCAR AQUI O ALERT DO RSUITE
     yield put(updateCliente({ form: { ...form, saving: false } }));
-    console.log(err);
-  //   notification('error', {
-  //     placement: 'topStart',
-  //     title: 'Ops...',
-  //     description: err.message,
-  //   });
+    toaster.push(
+      <Message showIcon type="error">Cliente não ativado!</Message>,
+      { placement: 'topEnd' }
+    );
   }
 }
 
@@ -230,22 +249,19 @@ export function* deleteCliente({ payload }) {
         throw new Error(res.message);
       }
   
-    //   if (res.error) {
-    //     // ALERT DO RSUITE
-    //     notification('error', {
-    //       placement: 'topStart',
-    //       title: 'Ops...',
-    //       description: res.message,
-    //     });
-    //     return false;
-    //   }
+      if (res.error) {
+        // ALERT DO RSUITE
+        toaster.push(
+          <Message showIcon type="error">Cliente não removido!</Message>,
+          { placement: 'topEnd' }
+        );
+        return false;
+      }
   
-    //   notification('success', {
-    //     placement: 'topStart',
-    //     title: 'Tudo certo',
-    //     description: 'O cliente foi desvinculado com sucesso!',
-    //   });
-  
+      toaster.push(
+        <Message showIcon type="success">Cliente removido com sucesso!</Message>,
+        { placement: 'topEnd' }
+      );
       yield put(allClientesAction());
       yield put(
         updateCliente({
@@ -255,12 +271,10 @@ export function* deleteCliente({ payload }) {
     } catch (err) {
       // COLOCAR AQUI O ALERT DO RSUITE
       yield put(updateCliente({ form: { ...form, saving: false } }));
-      console.log(err);
-    //   notification('error', {
-    //     placement: 'topStart',
-    //     title: 'Ops...',
-    //     description: err.message,
-    //   });
+      toaster.push(
+        <Message showIcon type="error">Cliente não removido!</Message>,
+        { placement: 'topEnd' }
+      );
     }
 }
 

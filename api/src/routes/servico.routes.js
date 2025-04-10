@@ -161,6 +161,26 @@ router.get('/testelabel', async (req, res) => {  // Rota para buscar todos os se
     }
 });
 
+router.get('/testelabel-ativos', async (req, res) => {  // Rota para buscar todos os servicos Plugin FrontEnd
+    try {
+        const todosServicos = [];
+        const servicos = await Servico.find({ status: 'A' });  // Busca todos os servicos com status diferente de 'E' (Excluído)
+        
+        for (let servico of servicos) {  // Para cada servico dentro dos servicos encontrados
+            const arquivos = await Arquivos.find({  // Busca os arquivos
+                referenciaID: servico._id,  // pelo ID do servico
+                model: 'Servico',  // E com model Servico
+            });
+        } 
+        res.json({
+            servicos: servicos.map((s)=> ({ label: s.titulo, value: s._id })), // Retorna um array de objetos com as chaves 'label' e 'value'
+        }); 
+        
+    } catch (error) {
+        res.json({ error: true, message: err.message });  // Retorna o erro, se houver
+    }
+});
+
 router.get('/:id', async (req, res) => {  // Rota para buscar um servico pelo ID
     try {
         const servico = await Servico.findOne({

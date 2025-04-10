@@ -20,7 +20,7 @@ html, body, #root {
 }
 
 /* CONTAINER PRINCIPAL */
-.app-container {
+.app-container { 
     display: flex;   /*AQUIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII*/
     flex-direction: column;
     min-height: 100vh;
@@ -228,6 +228,82 @@ sidebar ul li a text {
     background-color: rgba(255, 255, 255, 0.1);
 }
 
+
+/* -------------------------------------- */
+/* Estilos profissionais para a página de serviços */
+.servicos-page {
+    padding: 60px 40px;
+    max-width: 1400px;
+    margin: 0 auto;
+    background-color: #f9f9f9;
+}
+
+.servicos-header {
+    text-align: center;
+    margin-bottom: 60px;
+    position: relative;
+}
+
+.titulo-destaque {
+    font-size: 2.8rem;
+    color: var(--primary);
+    margin-bottom: 15px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    position: relative;
+    display: inline-block;
+}
+
+.titulo-destaque::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, var(--success), var(--primary));
+    border-radius: 2px;
+}
+
+.subtitulo {
+    font-size: 1.2rem;
+    color: #666;
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+.divisor {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #ddd, transparent);
+    margin-top: 40px;
+}
+
+.servicos-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
+
+.servicos-coluna {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.sem-servicos {
+    text-align: center;
+    padding: 80px 50px;
+    color: #666;
+    font-size: 1.2rem;
+    grid-column: 1 / -1;
+}
+    
+
+/* ----------------------------------- */
+
+    
 /* RESPONSIVIDADE */
 @media (max-width: 768px) {
     header {
@@ -259,4 +335,391 @@ sidebar ul li a text {
         left: 50%;
         transform: translateX(-50%);
     }
+
+
+    .servicos-page {
+        padding: 40px 20px;
+      }
+      
+      .titulo-destaque {
+        font-size: 2.2rem;
+      }
+
+
+    .servico-carrossel-container {
+        height: 200px;
+        }
+        
+        .imagem-container {
+        height: 200px;
+        }
+        
+        .servico-info {
+        padding: 20px;
+        }
+        
+        .servico-info h2 {
+        font-size: 1.3rem;
+        }  
 }
+
+@media (max-width: 992px) {
+    .servicos-grid {
+    grid-template-columns: 1fr;
+    }
+    
+    .servicos-coluna {
+    gap: 25px;
+    }
+}
+
+/* Estilos aprimorados para o React-Big-Calendar */
+.rbc-calendar {
+    height: auto !important;  
+    background-color: var(--white);
+    color: var(--primary);
+    font-family: inherit;
+    border-radius: 8px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  }
+  
+  /* Cabeçalho */
+  .rbc-toolbar {
+    background-color: var(--primary);
+    color: var(--white);
+    padding: 12px 16px;
+    border-radius: 8px 8px 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .rbc-toolbar button {
+    color: var(--white);
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-weight: 500;
+    margin: 3px;
+  }
+  
+  .rbc-toolbar button:hover {
+    background: rgba(255, 255, 255, 0.767);
+    transform: translateY(-1px);
+  }
+  
+  .rbc-toolbar button:active, 
+  .rbc-toolbar button.rbc-active {
+    background: rgba(255, 255, 255, 0.3);
+    color: var(--success);
+  }
+  
+  /* rbc-toolbar-label é o elemento que contém o título do mês/ano */
+  .rbc-toolbar-label {
+    font-weight: 600;
+    font-size: 1.3em;
+    flex: 1;
+    text-align: center;
+    order: 0;
+  }
+  
+  /* Cabeçalho dos dias */
+  .rbc-header {
+    background-color: var(--dark);
+    color: var(--white);
+    padding: 12px 0;
+    text-align: center;
+    font-weight: 500;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    font-size: 0.9em;
+    text-transform: uppercase;
+  }
+  
+  /* Células do mês */
+  .rbc-month-view {
+    border-radius: 0 0 8px 8px;
+  }
+  
+  .rbc-month-row {
+    min-height: 120px !important;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  }
+  
+  .rbc-month-row + .rbc-month-row {
+    border-top: none;
+  }
+  
+  /* rbc-date-cell é o elemento que contém a data do dia */
+  .rbc-date-cell {
+    padding: 8px 8px 4px 8px;
+    text-align: right;
+    font-size: 1em;
+    font-weight: 500;
+  }
+  
+  .rbc-date-cell > a {
+    color: inherit;
+    text-decoration: none;
+  }
+  
+  .rbc-off-range {
+    color: rgba(0, 0, 0, 0.3);
+  }
+  
+  .rbc-off-range-bg {
+    background-color: rgba(0, 0, 0, 0.02);
+  }
+  
+  /* Aplica SOMENTE no modo month (mês) */
+  .rbc-month-view .rbc-today {
+    background-color: rgba(0, 0, 0, 0.3);
+    position: relative;
+    border-radius: 2%;
+  }
+  
+  .rbc-month-view .rbc-today::after {
+    content: '';
+    position: absolute;
+    bottom: 2px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 25px;
+    height: 3px;
+    background-color: var(--success);
+    border-radius: 3px;
+    box-shadow: 0 0 6px rgba(6, 214, 158, 0.932);
+  }
+  
+  .rbc-time-slot .rbc-label {
+    text-align: center;
+  }
+  
+  /* Estilo ALTERNATIVO para week/day - sem barrinha inferior */
+  .rbc-time-view .rbc-today {
+    background-color: rgba(6, 214, 160, 0.03); /* Fundo mais suave */
+  }
+  
+  /* Opcional: destaque no cabeçalho do dia atual (week/day) */
+  .rbc-time-view .rbc-header.rbc-today {
+    font-weight: bold;
+    color: var(--success); /* Texto em verde */
+    position: relative;
+  }
+  
+  .rbc-time-view .rbc-header.rbc-today::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1.5px;
+    background-color: var(--success);
+    border-radius: 0 0 3px 3px;
+    box-shadow: 0 0 6px rgba(6, 214, 158, 0.932);
+  }
+  
+  /* Eventos */
+  .rbc-event {
+    background-color: var(--primary);
+    color: var(--white);
+    border-radius: 4px;
+    padding: 4px 8px;
+    font-size: 0.85em;
+    border: none;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 1px;
+  }
+  
+  /* Texto do evento */
+  .rbc-event-content {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .rbc-event:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.541);
+    opacity: 0.95;
+  }
+  
+  .rbc-event.rbc-selected {
+    background-color: var(--success);
+    box-shadow: 0 4px 8px rgba(6, 214, 158, 0.596);
+    transform: translateY(-1px);
+    opacity: 0.95;
+    font-weight: bolder;
+  }
+  
+  .rbc-selected {
+    background-color: rgba(6, 214, 160, 0.15);
+  }
+  
+  /* Agenda (lista de eventos) */
+  .rbc-agenda-view table.rbc-agenda-table {
+    border: none;
+    border-collapse: separate;
+    border-spacing: 0;
+  }
+  
+  .rbc-agenda-view table.rbc-agenda-table tbody > tr > td {
+    padding: 12px 16px;
+    vertical-align: middle;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    transition: background-color 0.2s ease;
+  }
+  
+  .rbc-agenda-view table.rbc-agenda-table tbody > tr:hover > td {
+    background-color: rgba(0, 0, 0, 0.02);
+  }
+  
+  .rbc-agenda-time-cell {
+    color: var(--primary);
+    font-weight: 500;
+  }
+  
+  .rbc-agenda-date-cell {
+    font-weight: 600;
+    color: var(--dark);
+  }
+  
+  .rbc-agenda-date-cell, 
+  .rbc-agenda-time-cell {
+    border-right: 1px solid rgba(0, 0, 0, 0.05);
+  }
+  
+  /* Time Grid */
+  .rbc-time-view {
+    border-radius: 0 0 8px 8px;
+  }
+  
+  /* Cabeçalho do tempo (hora) */
+  .rbc-time-header {
+    background-color: var(--primary);
+    color: var(--white);
+  }
+  
+  .rbc-time-header .rbc-header {
+    margin: 0;
+    padding-bottom: 20px;
+    padding-top: 10;
+  }
+  
+  .rbc-time-header-content {
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .rbc-timeslot-group {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  }
+  
+  .rbc-time-content {
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+  }
+  
+  .rbc-day-slot .rbc-time-slot {
+    color: rgba(0, 0, 0, 0.6);
+  }
+  
+  /* Linha do tempo atual (substitui o vermelho) */
+  .rbc-current-time-indicator {
+    background-color: var(--success);
+    height: 1.5px;
+    box-shadow: 0 0 6px rgba(6, 214, 158, 0.932);
+  }
+  
+  /* Week e Day views */
+  /* O >* + * > * é para aplicar o estilo apenas nos filhos diretos do elemento pai, evitando que o estilo se aplique a outros elementos dentro do mesmo nível */
+  .rbc-time-content > * + * > * {
+    background-color: var(--white);
+    transition: background-color 0.2s ease;
+  }
+  
+  .rbc-time-content > * + * > *:hover {
+    background-color: rgba(0, 0, 0, 0.02) !important;
+  }
+  
+  /* Botão de adicionar evento */
+  .rbc-addons-dnd .rbc-addons-dnd-add-slot {
+    background-color: rgba(6, 214, 160, 0.08);
+    border: 1px dashed var(--success);
+    opacity: 0.7;
+    transition: all 0.2s ease;
+  }
+  
+  .rbc-addons-dnd .rbc-addons-dnd-add-slot:hover {
+    opacity: 1;
+    background-color: rgba(6, 214, 160, 0.15);
+  }
+  
+  /* Modal de evento */
+  .rbc-overlay {
+    background-color: var(--white);
+    border-radius: 8px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+    padding: 0;
+    overflow: hidden;
+    border: none;
+  }
+  
+  .rbc-overlay-header {
+    background-color: var(--primary);
+    color: var(--white);
+    padding: 16px 20px;
+    margin: 0;
+    font-weight: 600;
+    font-size: 1.1em;
+  }
+  
+  .rbc-overlay-body {
+    padding: 20px;
+  }
+  
+  .container-fluid {
+    max-height: 90vh; /* Permite que o calendário ocupe 90% da tela */
+    overflow-y: auto;
+  }
+  
+  /* Cor de fundo da seleção (SELECTABLE={TRUE}) */
+  .rbc-slot-selection {
+    background-color: rgba(100, 148, 237, 0.904); /* azul claro com transparência */
+    border: 1px solid #6495ED; /* azul cornflower */
+  }
+  
+  
+  /* Responsividade */
+  @media (max-width: 768px) {
+    .rbc-toolbar {
+      flex-direction: column;
+      text-align: center;
+      gap: 8px;
+    }
+  
+    .rbc-toolbar button {
+      width: 100%;
+      margin: 2px 0;
+    }
+  
+    .rbc-toolbar-label {
+      order: 0;
+      margin-bottom: 8px;
+    }
+  
+    .rbc-header {
+      padding: 8px 0;
+      font-size: 0.8em;
+    }
+  
+    .rbc-date-cell {
+      padding: 4px 4px 0 4px;
+      font-size: 0.8em;
+    }
+  }
+  

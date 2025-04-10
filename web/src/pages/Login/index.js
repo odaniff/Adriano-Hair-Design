@@ -91,6 +91,18 @@ const Login = () => {
         >
           Sou Administrador
         </Button>
+
+        <Button 
+          appearance="ghost" 
+          block 
+          onClick={() => {
+            navigate('/login')
+            }
+          }
+          style={styles.linkButton}
+        >
+          Sou Cliente
+        </Button>
         
         {!isAdmin && (
           <Button 

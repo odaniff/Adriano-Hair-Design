@@ -7,24 +7,24 @@ const Footer = () => {
       <div className="footer-content">
         <div className="footer-section about">
           <h3 className="footer-title">Adriano Hair Design</h3>
-          <p className="footer-text">Transformando seu visual com excelência desde 2010.</p>
+          <p className="footer-text">Transformando seu visual com excelência desde 2007.</p>
           
           <div className="contact-info">
             <div className="contact-item">
               <span className="mdi mdi-map-marker-outline"></span>
-              <span>Av. Principal, 1234 - Centro, Cidade/UF</span>
+              <span>Asa Norte Comércio Local Norte 113 - Asa Norte, Brasília - DF, 70297-400</span>
             </div>
             <div className="contact-item">
               <span className="mdi mdi-clock-outline"></span>
-              <span>Seg-Sex: 9h-19h | Sáb: 9h-14h</span>
+              <span>Ter-Sáb: 8h-18h</span>
             </div>
             <div className="contact-item">
               <span className="mdi mdi-phone"></span>
-              <span>(11) 99999-9999</span>
+              <span>(61) 98201-0245</span>
             </div>
             <div className="contact-item">
               <span className="mdi mdi-email-outline"></span>
-              <span>contato@adrianohair.com</span>
+              <span>hairadriano2625@gmail.com</span>
             </div>
           </div>
         </div>
@@ -32,8 +32,7 @@ const Footer = () => {
         <div className="footer-section links">
           <h3 className="footer-title">Links Rápidos</h3>
           <ul>
-            <li><a href="/sobre">Sobre Nós</a></li>
-            <li><a href="/contato">Contato</a></li>
+            <li><a href="https://wa.me/5561982010245">Contato</a></li>
           </ul>
         </div>
 
@@ -43,7 +42,7 @@ const Footer = () => {
             <Button 
               appearance="subtle" 
               color="red" 
-              href="https://instagram.com" 
+              href="https://www.instagram.com/hairadriano2625/" 
               target="_blank"
             >
               <span className="mdi mdi-instagram"></span>
@@ -52,7 +51,7 @@ const Footer = () => {
             <Button 
               appearance="subtle" 
               color="green" 
-              href="https://wa.me/5511999999999" 
+              href="https://wa.me/5561982010245" 
               target="_blank"
             >
               <span className="mdi mdi-whatsapp"></span>

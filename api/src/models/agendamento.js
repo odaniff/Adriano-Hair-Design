@@ -32,7 +32,7 @@ const agendamentoSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    valor_servico    : {
+    valor_servico: {
         type: Number,
         required: true,
     },

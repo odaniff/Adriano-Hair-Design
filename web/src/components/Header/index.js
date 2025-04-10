@@ -1,8 +1,9 @@
-import logoBranca from "../../assets/Adriano Hair Design (8).png";
+import logoBranca from "../../assets/Logo_Branca_Normal.png";
 import { Button } from 'rsuite';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { signOut } from '../../store/modules/auth/actions'; // você deve ter essa action
+import ExitIcon from '@rsuite/icons/Exit';
 
 const Header = () => {
     const dispatch = useDispatch();
@@ -26,7 +27,8 @@ const Header = () => {
             />
             { signed && (
             <Button appearance="ghost" color="red" onClick={handleLogout}>
-                Sair
+                <span className="px-2">Sair</span>
+                <ExitIcon></ExitIcon>
             </Button>
             )}
         </header>

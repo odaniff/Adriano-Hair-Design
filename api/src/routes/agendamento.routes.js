@@ -11,6 +11,62 @@ import _ from 'lodash';
 
 const router = express.Router();
 
+// router.post('/', async(req,res) => {
+//     const db = mongoose.connection;  // Conexão com o banco de dados
+//     const session = await db.startSession();  // Inicia uma sessão
+//     session.startTransaction();         // Inicia uma transação
+    
+//     try {
+        
+//         const { clienteID, servicoID, data_inicio } = req.body;
+
+//         // Busca as informações do Cliente e do Serviço
+//         const cliente = await Cliente.findById(clienteID).select('nome telefone email endereco');
+//         const servico = await Servico.findById(servicoID).select('titulo preco duracao');
+    
+//         if (!cliente || !servico) {
+//             await session.abortTransaction();
+//             return res.json({ error: true, message: "Cliente ou serviço não encontrado." });
+//         }
+
+//         const fim = new Date(new Date(data_inicio).getTime() + servico.duracao * 60000);  // fim do novo serviço
+
+//         const existentAgendamento = await Agendamento.findOne({     // busca no banco um agendamento existente
+//             $or: [  // Considerar alguma das condiçoes (ou)
+//                 {
+//                     data_inicio: { $lt: fim},  // que, Começa antes do novo terminar (lt)=> less than-menor que
+//                     data_fim: {$gt: data_inicio},  // que, Termina depois do novo começar (gt)=> greater than-maior que
+//                 },
+//             ],
+//         });
+        
+//         if(existentAgendamento) { // se existir aborta e apresenta a mensagem do erro.
+//             await session.abortTransaction();
+//             return res.json({ error: true, message: "Já existe um agendamento neste horário." })
+//         }
+
+//         // CRIAR O AGENDAMENTOS
+//         let agendamento = await new Agendamento({
+//             ... req.body,  // Copia todos os valores do req.body e junta com o campo 'valor' 
+//             nome_cliente: cliente.nome,
+//             telefone_cliente: cliente.telefone,
+//             email_cliente: cliente.email, 
+//             titulo_servico: servico.titulo,          
+//             valor_servico: servico.preco,
+//             duracao_servico: servico.duracao,
+//         }).save({session});
+
+//         await session.commitTransaction();
+//         res.json({error: false, agendamento})
+    
+//     } catch (err) {
+//         await session.abortTransaction();
+//         res.json({ error: true, message: err.message });
+//     } finally {
+//         session.endSession();
+//     }
+// });
+
 router.post('/', async(req,res) => {
     const db = mongoose.connection;  // Conexão com o banco de dados
     const session = await db.startSession();  // Inicia uma sessão
@@ -18,14 +74,19 @@ router.post('/', async(req,res) => {
     
     try {
         
-        const { clienteID, servicoID, data_inicio } = req.body;
+        const { email, servicoID, data_inicio } = req.body;
 
         // Busca as informações do Cliente e do Serviço
-        const cliente = await Cliente.findById(clienteID).select('nome telefone email endereco');
-        const servico = await Servico.findById(servicoID).select('titulo preco duracao');
+        const cliente = await Cliente.findOne({ email, status: "A" }).select('_id nome telefone email endereco status');
+        const servico = await Servico.findById(servicoID).select('_id titulo preco duracao');
     
         if (!cliente || !servico) {
             await session.abortTransaction();
+            console.log({ error: "Cliente ou serviço não encontrado." });
+            console.log('Email recebido:', email);
+            console.log('servicoID recebido:', servicoID);
+            console.log('Cliente encontrado:', cliente);
+            console.log('Serviço encontrado:', servico);
             return res.json({ error: true, message: "Cliente ou serviço não encontrado." });
         }
 
@@ -42,12 +103,15 @@ router.post('/', async(req,res) => {
         
         if(existentAgendamento) { // se existir aborta e apresenta a mensagem do erro.
             await session.abortTransaction();
+            console.log({ error: "Já existe um agendamento neste horário." });
             return res.json({ error: true, message: "Já existe um agendamento neste horário." })
         }
 
         // CRIAR O AGENDAMENTOS
         let agendamento = await new Agendamento({
             ... req.body,  // Copia todos os valores do req.body e junta com o campo 'valor' 
+            clienteID: cliente._id,
+            servicoID: servico._id,
             nome_cliente: cliente.nome,
             telefone_cliente: cliente.telefone,
             email_cliente: cliente.email, 
@@ -61,6 +125,7 @@ router.post('/', async(req,res) => {
     
     } catch (err) {
         await session.abortTransaction();
+        console.log({ error: true, message: err.message });
         res.json({ error: true, message: err.message });
     } finally {
         session.endSession();
@@ -72,7 +137,7 @@ router.post('/filter', async(req,res) => { // Rota para filtrar agendamentos den
         
         const { periodo } = req.body;
 
-        const agendamentosFiltrados = await Agendamento.find({
+        const agendamentos = await Agendamento.find({
             status: 'A',
             data_inicio: {
                 $gte: moment(periodo.inicio).startOf('day'),  // Agendamentos que tem a data de inicio maior ou igual ao inicio do periodo 
@@ -83,7 +148,7 @@ router.post('/filter', async(req,res) => { // Rota para filtrar agendamentos den
             {path: 'clienteID', select: 'nome telefone'},
         ]);
 
-        res.json({error: false, agendamentosFiltrados})
+        res.json({error: false, agendamentos})
     
     } catch (err) {
         res.json({ error: true, message: err.message });
@@ -214,12 +279,24 @@ router.post('/dias-disponiveis', async(req,res) => {
     }
 });
 
-router.delete('/:id', async(req, res) => {  // Rota para alterar o status de um servico pelo ID, para 'E' (Excluído)
+router.delete('/unlink/:id', async(req, res) => {  // Rota para alterar o status de um servico pelo ID, para 'E' (Excluído)
     try {
 
         // Atualiza o status do serviço no MongoDB
         const agendamentoExcluido = await Servico.findByIdAndUpdate(req.params.id, {status: 'E'}, {new: true});  // Busca e Atualiza o status do servico pelo ID
         res.json({ error: false, agendamentoExcluido});  // Retorna o servico excluído
+
+    } catch (error) {
+        res.json({error: true, message: error.message });  // Retorna o erro com o status 400
+    }
+});
+
+router.delete('/:id', async(req, res) => {  // Rota para alterar o status de um servico pelo ID, para 'E' (Excluído)
+    try {
+
+        // Atualiza o status do serviço no MongoDB
+        const agendamento = await Agendamento.findByIdAndDelete(req.params.id);  // Busca e Atualiza o status do servico pelo ID
+        res.json({ error: false, agendamento});  // Retorna o servico excluído
 
     } catch (error) {
         res.json({error: true, message: error.message });  // Retorna o erro com o status 400

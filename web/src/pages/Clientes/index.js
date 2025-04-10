@@ -69,7 +69,7 @@ const Clientes = () => {
         <div className="container-fluid col p-5 overflow-auto h-100">
             <Drawer open={components.drawer} size="sm" onClose={() => setComponents('drawer', false)}>
                 <Drawer.Body>
-                    <h3>{behavior === "create" ? 'Criar Novo' : 'Atualizar' } cliente</h3>
+                    <h3>{behavior === "create" ? 'Cadastrar' : 'Atualizar' } Cliente</h3>
                     
                     <div className='row mt-3'>
                         
@@ -104,7 +104,7 @@ const Clientes = () => {
                             <input 
                                 type="text" 
                                 className='form-control' 
-                                placeholder='Nome do cliente' 
+                                placeholder='Nome' 
                                 disabled={form.disabled}
                                 value={cliente.nome}
                                 onChange={(e) => setCliente('nome', e.target.value)}
@@ -116,7 +116,7 @@ const Clientes = () => {
                             <input 
                                 type="text" 
                                 className='form-control' 
-                                placeholder='Telefone / Whatsapp do cliente' 
+                                placeholder='Telefone / Whatsapp' 
                                 disabled={form.disabled}
                                 value={cliente.telefone}
                                 onChange={(e) => {
@@ -126,7 +126,7 @@ const Clientes = () => {
                             />
                         </div>
 
-                        <div className='form-group col-6'>
+                        <div className='form-group col-6 mt-2'>
                             <b className=''>Data de Nascimento</b>
                             <input 
                                 type="date" 
@@ -138,7 +138,7 @@ const Clientes = () => {
                             />
                         </div>
 
-                        <div className='form-group col-6'>
+                        <div className='form-group col-6 mt-2'>
                             <b className=''>Sexo</b>
                             <select 
                                 className='form-control' 
@@ -151,7 +151,7 @@ const Clientes = () => {
                             </select>
                         </div>
 
-                        <div className="form-group col-6">
+                        <div className="form-group col-6 mt-2">
                             <b>Tipo de documento</b>
                             <select
                                 disabled={form.disabled}
@@ -169,7 +169,7 @@ const Clientes = () => {
                             </select>
                         </div>
 
-                        <div className="form-group col-6">
+                        <div className="form-group col-6 mt-2">
                             <b className="">Número do documento</b>
                             <input
                                 type="text"
@@ -185,7 +185,7 @@ const Clientes = () => {
                             />
                         </div>
                         
-                        <div className="form-group col-3">
+                        <div className="form-group col-3 mt-2">
                             <b className="">UF</b>
                             <input
                                 type="text"
@@ -202,7 +202,7 @@ const Clientes = () => {
                             />
                         </div>
                     
-                        <div className="form-group col-9">
+                        <div className="form-group col-9 mt-2">
                             <b className="">Cidade</b>
                             <input
                                 type="text"
@@ -218,8 +218,9 @@ const Clientes = () => {
                                 }
                             />
                         </div>
-
-                        <div className="form-group col-9">
+                        
+                        {behavior === 'create' && (
+                        <div className="form-group col-9 mt-2">
                             <b className="">Senha</b>
                             <input
                                 type="text"
@@ -231,6 +232,7 @@ const Clientes = () => {
                                 setCliente('senha', e.target.value)}
                             />
                         </div>
+                        )}
 
                     </div>
 

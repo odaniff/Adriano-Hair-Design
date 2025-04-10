@@ -6,7 +6,7 @@ import {
 } from './actions';
 import types from './types';
 import api from '../../../services/api';
-import { notification } from '../../../services/rsuite';
+import { toaster, Message } from 'rsuite';
 
 export function* addHorario() {
   try {
@@ -21,11 +21,10 @@ export function* addHorario() {
 
     if (res.error) {
       // ALERT DO RSUITE
-      notification('error', {
-        placement: 'topStart',
-        title: 'Ops...',
-        description: res.message,
-      });
+      toaster.push(
+        <Message showIcon type="error">Horário não criado!</Message>,
+        { placement: 'topEnd' }
+      );
       return false;
     }
 
@@ -33,17 +32,15 @@ export function* addHorario() {
     yield put(updateHorario({ components: { ...components, drawer: false, confirmSave: false } }));
     yield put(resetHorario());
 
-    notification('success', {
-      placement: 'topStart',
-      title: 'Feitoooo!!',
-      description: 'Horário salvo com sucesso!',
-    });
+    toaster.push(
+      <Message showIcon type="success">Horário criado com sucesso!</Message>,
+      { placement: 'topEnd' }
+    );
   } catch (err) {
-    notification('error', {
-      placement: 'topStart',
-      title: 'Ops...',
-      description: err.message,
-    });
+    toaster.push(
+      <Message showIcon type="error">Horário não criado!</Message>,
+      { placement: 'topEnd' }
+    );
   }
 }
 
@@ -61,11 +58,10 @@ export function* allHorarios() {
 
     if (res.error) {
       // ALERT DO RSUITE
-      notification('error', {
-        placement: 'topStart',
-        title: 'Ops...',
-        description: res.message,
-      });
+      toaster.push(
+        <Message showIcon type="error">Horários não recuperados!</Message>,
+        { placement: 'topEnd' }
+      );
       return false;
     }
 
@@ -73,11 +69,10 @@ export function* allHorarios() {
   } catch (err) {
     // COLOCAR AQUI O ALERT DO RSUITE
     yield put(updateHorario({ form: { ...form, filtering: false } }));
-    notification('error', {
-      placement: 'topStart',
-      title: 'Ops...',
-      description: err.message,
-    });
+    toaster.push(
+      <Message showIcon type="error">Horários não recuperados!</Message>,
+      { placement: 'topEnd' }
+    );
   }
 }
 
@@ -96,11 +91,10 @@ export function* saveHorario() {
 
     if (res.error) {
       // ALERT DO RSUITE
-      notification('error', {
-        placement: 'topStart',
-        title: 'Ops...',
-        description: res.message,
-      });
+      toaster.push( 
+        <Message showIcon type="error">Serviço não atualizado!</Message>,
+        { placement: 'topEnd' }
+      );
       return false;
     }
 
@@ -108,18 +102,16 @@ export function* saveHorario() {
     yield put(updateHorario({ components: { ...components, drawer: false, confirmSave: false } }));
     yield put(resetHorario());
 
-    notification('success', {
-      placement: 'topStart',
-      title: 'Feitoooo!!',
-      description: 'Serviço salvo com sucesso!',
-    });
+    toaster.push(
+      <Message showIcon type="success">Serviço atualizado com sucesso!</Message>,
+      { placement: 'topEnd' }
+    );
   } catch (err) {
     yield put(updateHorario({ form: { ...form, saving: false } }));
-    notification('error', {
-      placement: 'topStart',
-      title: 'Ops...',
-      description: err.message,
-    });
+    toaster.push( 
+      <Message showIcon type="error">Serviço não atualizado!</Message>,
+      { placement: 'topEnd' }
+    );
   }
 }
 
@@ -134,11 +126,10 @@ export function* removeHorario() {
 
     if (res.error) {
       // ALERT DO RSUITE
-      notification('error', {
-        placement: 'topStart',
-        title: 'Ops...',
-        description: res.message,
-      });
+      toaster.push(
+        <Message showIcon type="error">Horário não removido!</Message>,
+        { placement: 'topEnd' }
+      );
       return false;
     }
 
@@ -148,14 +139,19 @@ export function* removeHorario() {
         components: { ...components, drawer: false, confirmDelete: false },
       })
     );
+
+    toaster.push(
+      <Message showIcon type="success">Horário removido com sucesso!</Message>,
+      { placement: 'topEnd' }
+    );
+
   } catch (err) {
     // COLOCAR AQUI O ALERT DO RSUITE
     yield put(updateHorario({ form: { ...form, saving: false } }));
-    notification('error', {
-      placement: 'topStart',
-      title: 'Ops...',
-      description: err.message,
-    });
+    toaster.push(
+      <Message showIcon type="error">Horário não removido!</Message>,
+      { placement: 'topEnd' }
+    );
   }
 }
 
@@ -173,11 +169,10 @@ export function* allServicos() {
 
     if (res.error) {
       // ALERT DO RSUITE
-      notification('error', {
-        placement: 'topStart',
-        title: 'Ops...',
-        description: res.message,
-      });
+      toaster.push(
+        <Message showIcon type="error">Serviços não recuperados!</Message>,
+        { placement: 'topEnd' }
+      );
       return false;
     }
 
@@ -185,11 +180,10 @@ export function* allServicos() {
   } catch (err) {
     // COLOCAR AQUI O ALERT DO RSUITE
     yield put(updateHorario({ form: { ...form, filtering: false } }));
-    notification('error', {
-      placement: 'topStart',
-      title: 'Ops...',
-      description: err.message,
-    });
+    toaster.push(
+      <Message showIcon type="error">Serviços não recuperados!</Message>,
+      { placement: 'topEnd' }
+    );
   }
 }
 

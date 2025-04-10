@@ -6,6 +6,8 @@ import 'moment/locale/pt-br';
 
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 
+import '../Agendamentos/calendar.css'
+
 import {
   TagPicker,
   Drawer,
@@ -150,9 +152,6 @@ const Horarios = () => {
     dispatch(allServicos());
   }, [dispatch]);
 
-//   useEffect(() => {
-//     dispatch(filterColaboradores());
-//   }, [horario.especialidades]);
 
   return (
     <div className="col p-5 overflow-auto h-100">
@@ -218,7 +217,6 @@ const Horarios = () => {
               />
             </div>
             <div className="col-12 mt-3">
-
             </div>
             <div className="col-12 mt-3">
               <b>Servicos disponíveis</b>
